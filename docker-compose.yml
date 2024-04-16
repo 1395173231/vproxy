@@ -1,0 +1,59 @@
+version: '3.8'
+services:
+  vproxy-service-1:
+    build: .
+    image: vproxy-image
+    network_mode: "host"
+    privileged: true
+    restart: always
+    environment:
+       - VPROXY_PORT=1888
+    env_file:
+      - .env    
+    healthcheck:
+      test: ["CMD","/bin/bash","check_proxy.sh", "1888"]
+      interval: 10s
+      timeout: 30s
+      start_period: 5s
+      retries: 3
+  vproxy-service-2:
+    build: .
+    image: vproxy-image
+    network_mode: "host"
+    privileged: true
+    restart: always
+    environment:
+      - VPROXY_PORT=1889
+    env_file:
+      - .env    
+    healthcheck:
+      test: ["CMD","/bin/bash", "check_proxy.sh", "1889"]
+      interval: 10s
+      timeout: 30s
+      start_period: 5s
+      retries: 3
+
+  vproxy-service-3:
+    build: .
+    image: vproxy-image
+    network_mode: "host"
+    privileged: true
+    restart: always
+    environment:
+      - VPROXY_PORT=1890
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD","/bin/bash", "check_proxy.sh", "1890"]
+      interval: 10s
+      timeout: 30s
+      start_period: 5s
+      retries: 3
+
+  # Nginx 作为负载均衡器
+  nginx-lb:
+    image: nginx:latest
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
