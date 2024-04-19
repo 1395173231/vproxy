@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 下载vproxy，并解压到/app
-RUN curl -L "https://github.com/gngpp/vproxy/releases/download/v0.1.5/vproxy-0.1.5-x86_64-unknown-linux-musl.tar.gz" | tar -xz
+RUN curl -L "https://github.com/gngpp/vproxy/releases/download/v0.1.6/vproxy-0.1.6-x86_64-unknown-linux-musl.tar.gz" | tar -xz
 
 COPY check_proxy.sh /usr/local/bin/check_proxy.sh
 RUN chmod +x /usr/local/bin/check_proxy.sh
