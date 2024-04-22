@@ -7,7 +7,8 @@ services:
     privileged: true
     restart: always
     environment:
-       - VPROXY_PORT=1888    
+       - VPROXY_PORT=1888  
+       - SUBNET=${SUBNET}  
     healthcheck:
       test: ["CMD","/bin/bash","check_proxy.sh", "1888"]
       interval: 10s
@@ -22,6 +23,7 @@ services:
     restart: always
     environment:
       - VPROXY_PORT=1889
+      - SUBNET=${SUBNET}
     healthcheck:
       test: ["CMD","/bin/bash", "check_proxy.sh", "1889"]
       interval: 10s
@@ -37,6 +39,7 @@ services:
     restart: always
     environment:
       - VPROXY_PORT=1890
+      - SUBNET=${SUBNET}
     healthcheck:
       test: ["CMD","/bin/bash", "check_proxy.sh", "1890"]
       interval: 10s

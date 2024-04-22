@@ -16,9 +16,11 @@ RUN curl -L "https://github.com/gngpp/vproxy/releases/download/v0.1.6/vproxy-0.1
 COPY check_proxy.sh /usr/local/bin/check_proxy.sh
 RUN chmod +x /usr/local/bin/check_proxy.sh
 
+
+ARG SUBNET
 # 设置环境变量 VPROXY_PORT，用于定义运行端口，默认1888
 ENV VPROXY_PORT=1888
-ENV SUBNET=2001:470:7014::/48
+ENV SUBNET=2001:470:1::/48
 
 # 配置容器启动时执行的命令，使用环境变量中的端口
 ENTRYPOINT  ./vproxy run --bind=0.0.0.0:${VPROXY_PORT} -i ${SUBNET}
