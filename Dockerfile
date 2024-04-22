@@ -21,4 +21,4 @@ ENV VPROXY_PORT=1888
 ENV SUBNET=2001:470:7014::/48
 
 # 配置容器启动时执行的命令，使用环境变量中的端口
-ENTRYPOINT  ./vproxy run -B 0.0.0.0:${VPROXY_PORT} -i ${SUBNET}
+ENTRYPOINT  ./vproxy run --bind=0.0.0.0:${VPROXY_PORT} -i ${SUBNET}

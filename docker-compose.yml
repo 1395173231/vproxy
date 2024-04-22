@@ -7,13 +7,11 @@ services:
     privileged: true
     restart: always
     environment:
-       - VPROXY_PORT=1888
-    env_file:
-      - .env    
+       - VPROXY_PORT=1888    
     healthcheck:
       test: ["CMD","/bin/bash","check_proxy.sh", "1888"]
       interval: 10s
-      timeout: 30s
+      timeout: 5s
       start_period: 5s
       retries: 3
   vproxy-service-2:
@@ -24,12 +22,10 @@ services:
     restart: always
     environment:
       - VPROXY_PORT=1889
-    env_file:
-      - .env    
     healthcheck:
       test: ["CMD","/bin/bash", "check_proxy.sh", "1889"]
       interval: 10s
-      timeout: 30s
+      timeout: 5s
       start_period: 5s
       retries: 3
 
@@ -41,12 +37,10 @@ services:
     restart: always
     environment:
       - VPROXY_PORT=1890
-    env_file:
-      - .env
     healthcheck:
       test: ["CMD","/bin/bash", "check_proxy.sh", "1890"]
       interval: 10s
-      timeout: 30s
+      timeout: 5s
       start_period: 5s
       retries: 3
 
