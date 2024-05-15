@@ -19,7 +19,7 @@ RUN ARCH=$(dpkg --print-architecture) && \
         armhf) echo arm-unknown-linux-musleabihf ;; \
         *) echo ${ARCH} ;; \
     esac)" && \
-    LATEST_URL=$(curl -s "https://api.github.com/repos/gngpp/vproxy/releases/latest" | jq -r ".assets[] | select(.name | test(\"${ARCH_MUSL}\"))| select( .name | endswith(\".tar.gz\")) | .browser_download_url") && \
+    LATEST_URL=$(curl -s -L "https://api.github.com/repos/gngpp/vproxy/releases/latest" | jq -r ".assets[] | select(.name | test(\"${ARCH_MUSL}\"))| select( .name | endswith(\".tar.gz\")) | .browser_download_url") && \
     curl -L ${LATEST_URL} | tar -xz
 
 COPY check_proxy.sh /usr/local/bin/check_proxy.sh
