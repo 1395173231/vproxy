@@ -4,7 +4,7 @@ services:
     build: .
     image: vproxy-image
     network_mode: "host"
-    privileged: true
+    #privileged: true
     restart: always
     environment:
        - VPROXY_PORT=1888  
@@ -19,7 +19,7 @@ services:
     build: .
     image: vproxy-image
     network_mode: "host"
-    privileged: true
+    #privileged: true
     restart: always
     environment:
       - VPROXY_PORT=1889
@@ -35,7 +35,7 @@ services:
     build: .
     image: vproxy-image
     network_mode: "host"
-    privileged: true
+    #privileged: true
     restart: always
     environment:
       - VPROXY_PORT=1890
