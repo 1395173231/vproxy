@@ -54,3 +54,15 @@ services:
     network_mode: "host"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+  autoheal:
+    deploy:
+      replicas: 1
+    environment:
+      AUTOHEAL_CONTAINER_LABEL: all 
+    image: willfarrell/autoheal:latest
+    network_mode: none
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
