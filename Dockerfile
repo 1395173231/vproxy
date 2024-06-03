@@ -22,8 +22,17 @@ RUN ARCH=$(dpkg --print-architecture) && \
     LATEST_URL=$(curl -s -L "https://api.github.com/repos/gngpp/vproxy/releases/latest" | jq -r ".assets[] | select(.name | test(\"${ARCH_MUSL}\"))| select( .name | endswith(\".tar.gz\")) | .browser_download_url") && \
     curl -L ${LATEST_URL} | tar -xz
 
+# 创建一个非root用户和用户组
+RUN groupadd -r appuser && useradd -r -g appuser -d /app -s /sbin/nologin -c "Docker user" appuser
+
+# 赋予工作目录和相关文件权限给新用户
+RUN chown -R appuser:appuser /app
+
 COPY check_proxy.sh /usr/local/bin/check_proxy.sh
 RUN chmod +x /usr/local/bin/check_proxy.sh
+
+# 切换到非root用户
+USER appuser
 
 ARG SUBNET
 # 设置环境变量 VPROXY_PORT，用于定义运行端口，默认1888
@@ -31,4 +40,4 @@ ENV VPROXY_PORT=1888
 ENV SUBNET=2001:470:1::/48
 
 # 配置容器启动时执行的命令，使用环境变量中的端口
-ENTRYPOINT  ./vproxy run --bind=0.0.0.0:${VPROXY_PORT} -i ${SUBNET} socks5  
+ENTRYPOINT  ./vproxy run --bind=0.0.0.0:${VPROXY_PORT} -i ${SUBNET} socks5 
