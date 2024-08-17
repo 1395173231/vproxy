@@ -10,7 +10,7 @@ if [ -z "$PROXY_PORT" ]; then
 fi
 
 # 使用curl通过指定的代理服务器测试连接
-if curl -x socks5://127.0.0.1:${PROXY_PORT} -m 2 http://ip.sb --silent --fail
+if curl -x socks5://127.0.0.1:${PROXY_PORT} -m 2 https://www.cloudflare.com/cdn-cgi/trace --silent --fail
 then
   echo "Proxy is up and running on port ${PROXY_PORT}."
   exit 0
