@@ -60,7 +60,7 @@ services:
       retries: 3
 
   gost:
-    image: ginuerzh/gost:latest
+    image: gogost/gost:latest
     restart: always
     network_mode: "host"
     volumes:
