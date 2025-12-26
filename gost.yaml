@@ -1,0 +1,39 @@
+services:
+  - name: "socks-proxy"
+    addr: ":8100"
+    handler:
+      type: socks5
+      auth:
+        username: xxxxx
+        password: xxxxx
+      chain: vproxy-chain
+    listener:
+      type: tcp
+
+chains:
+  - name: vproxy-chain
+    selector:
+      strategy: rand
+      maxFails: 1
+      failTimeout: 30s
+    hops:
+      - name: vproxy-hop
+        nodes:
+          - name: vproxy1
+            addr: 127.0.0.1:1888
+            connector:
+              type: socks5
+            dialer:
+              type: tcp
+          - name: vproxy2
+            addr: 127.0.0.1:1889
+            connector:
+              type: socks5
+            dialer:
+              type: tcp
+          - name: vproxy3
+            addr: 127.0.0.1:1890
+            connector:
+              type: socks5
+            dialer:
+              type: tcp
